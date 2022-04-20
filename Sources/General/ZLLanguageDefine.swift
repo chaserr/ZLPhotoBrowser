@@ -76,7 +76,9 @@ public struct ZLLocalLanguageKey: Hashable {
     
     /// Done (确定)
     public static let done = ZLLocalLanguageKey(rawValue: "done")
-    
+
+    /// 编辑所选照片，iOS14 limit
+    public static let editSystemLimitPhoto = ZLLocalLanguageKey(rawValue: "editSystemLimitPhoto")
     /// OK (确定)
     public static let ok = ZLLocalLanguageKey(rawValue: "ok")
     

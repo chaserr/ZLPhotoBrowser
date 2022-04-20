@@ -50,9 +50,9 @@ class ZLPhotoPreviewController: UIViewController {
     var navBlurView: UIVisualEffectView?
     
     var backBtn: UIButton!
-    
-    var selectBtn: ZLEnlargeButton!
-    
+
+    var selectBtn: SelectedButton!
+
     var indexLabel: UILabel!
     
     var bottomView: UIView!
@@ -145,7 +145,7 @@ class ZLPhotoPreviewController: UIViewController {
         self.navBlurView?.frame = self.navView.bounds
         
         self.backBtn.frame = CGRect(x: insets.left, y: insets.top, width: 60, height: 44)
-        self.selectBtn.frame = CGRect(x: self.view.frame.width - 40 - insets.right, y: insets.top + (44 - 25) / 2, width: 25, height: 25)
+        self.selectBtn.frame = CGRect(x: self.view.frame.width - 40 - insets.right, y: insets.top + (44 - 24) / 2, width: 25, height: 24)
         self.indexLabel.frame = self.selectBtn.bounds
         
         self.refreshBottomViewFrame()
@@ -232,11 +232,10 @@ class ZLPhotoPreviewController: UIViewController {
         self.backBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         self.backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         self.navView.addSubview(self.backBtn)
-        
-        self.selectBtn = ZLEnlargeButton(type: .custom)
-        self.selectBtn.setImage(getImage("zl_btn_circle"), for: .normal)
-        self.selectBtn.setImage(getImage("zl_btn_selected"), for: .selected)
+
+        self.selectBtn = SelectedButton(type: .custom)
         self.selectBtn.enlargeInset = 10
+
         self.selectBtn.addTarget(self, action: #selector(selectBtnClick), for: .touchUpInside)
         self.navView.addSubview(self.selectBtn)
         

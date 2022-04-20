@@ -31,7 +31,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     
     var imageView: UIImageView!
     
-    var btnSelect: ZLEnlargeButton!
+    var btnSelect: SelectedButton!
     
     var bottomShadowView: UIImageView!
     
@@ -46,7 +46,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     var coverView: UIView!
     
     var indexLabel: UILabel!
-    
+
     var enableSelect: Bool = true
     
     var progressView: ZLProgressView!
@@ -95,11 +95,10 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         self.coverView.isHidden = true
         self.contentView.addSubview(self.coverView)
         
-        self.btnSelect = ZLEnlargeButton(type: .custom)
-        self.btnSelect.setBackgroundImage(getImage("zl_btn_unselected"), for: .normal)
-        self.btnSelect.setBackgroundImage(getImage("zl_btn_selected"), for: .selected)
+        self.btnSelect = SelectedButton(type: .custom)
         self.btnSelect.addTarget(self, action: #selector(btnSelectClick), for: .touchUpInside)
-        self.btnSelect.enlargeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 20, right: 5)
+        self.btnSelect.setImage(getImage("zl_albumUnSelect"), for: .normal)
+        self.btnSelect.zl_enlargeValidTouchArea(insets: UIEdgeInsets(top: 5, left: 20, bottom: 20, right: 5))
         self.contentView.addSubview(self.btnSelect)
         
         self.indexLabel = UILabel()
@@ -111,7 +110,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         self.indexLabel.minimumScaleFactor = 0.5
         self.indexLabel.textAlignment = .center
         self.btnSelect.addSubview(self.indexLabel)
-        
+
         self.bottomShadowView = UIImageView(image: getImage("zl_shadow"))
         self.contentView.addSubview(self.bottomShadowView)
         
@@ -142,7 +141,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     override func layoutSubviews() {
         self.imageView.frame = self.bounds
         self.coverView.frame = self.bounds
-        self.btnSelect.frame = CGRect(x: self.bounds.width - 30, y: 8, width: 23, height: 23)
+        self.btnSelect.frame = CGRect(x: self.bounds.width - 32, y: 8, width: 24, height: 24)
         self.indexLabel.frame = self.btnSelect.bounds
         self.bottomShadowView.frame = CGRect(x: 0, y: self.bounds.height - 25, width: self.bounds.width, height: 25)
         self.videoTag.frame = CGRect(x: 5, y: 1, width: 20, height: 15)
@@ -160,12 +159,9 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         }
         
         self.btnSelect.layer.removeAllAnimations()
-        if !self.btnSelect.isSelected, ZLPhotoConfiguration.default().animateSelectBtnWhenSelect {
-            self.btnSelect.layer.add(getSpringAnimation(), forKey: nil)
-        }
         
         self.selectedBlock?(self.btnSelect.isSelected)
-        
+
         if self.btnSelect.isSelected {
             self.fetchBigImage()
         } else {
@@ -199,15 +195,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
             self.editImageTag.isHidden = true
             self.descLabel.text = "Live"
         } else {
-            if let _ = self.model.editImage {
-                self.bottomShadowView.isHidden = false
-                self.videoTag.isHidden = true
-                self.livePhotoTag.isHidden = true
-                self.editImageTag.isHidden = false
-                self.descLabel.text = ""
-            } else {
-                self.bottomShadowView.isHidden = true
-            }
+            self.bottomShadowView.isHidden = true
         }
         
         let showSelBtn: Bool
@@ -233,11 +221,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
             self.cancelFetchBigImage()
         }
         
-        if let ei = self.model.editImage {
-            self.imageView.image = ei
-        } else {
-            self.fetchSmallImage()
-        }
+        self.fetchSmallImage()
     }
     
     func fetchSmallImage() {

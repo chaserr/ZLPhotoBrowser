@@ -101,7 +101,7 @@ public class ZLProgressHUD: UIView {
     }
     
     func setupUI() {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 110, height: 90))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 130, height: 90))
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 5.0
         view.backgroundColor = self.style.bgColor()
@@ -130,7 +130,7 @@ public class ZLProgressHUD: UIView {
         
         self.addSubview(view)
     }
-    
+
     @objc public func show(timeout: TimeInterval = 100) {
         ZLMainAsync {
             UIApplication.shared.keyWindow?.addSubview(self)

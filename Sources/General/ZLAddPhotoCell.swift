@@ -29,34 +29,46 @@ import UIKit
 
 class ZLAddPhotoCell: UICollectionViewCell {
     var imageView: UIImageView!
+    var label: UILabel!
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUI()
     }
-    
+
     deinit {
         zl_debugPrint("ZLAddPhotoCell deinit")
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView.frame = CGRect(x: 0, y: 0, width: self.bounds.width / 3, height: self.bounds.width / 3)
-        self.imageView.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
-        
-    }
-    
+
+
     func setupUI() {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = ZLPhotoConfiguration.default().cellCornerRadio
-        
-        self.imageView = UIImageView(image: getImage("zl_addPhoto"))
+
+        self.imageView = UIImageView(image: getImage("ic_add_20_s5"))
         self.imageView.contentMode = .scaleAspectFit
         self.imageView.clipsToBounds = true
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.imageView)
         self.backgroundColor = .cameraCellBgColor
+
+        self.label = UILabel()
+        label.text = localLanguageTextValue(.editSystemLimitPhoto)
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(label)
+
+        imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -5).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+
+        label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 5).isActive = true
+
     }
 }

@@ -104,7 +104,8 @@ class ZLAlbumListCell: UITableViewCell {
         self.selectBtn = UIButton(type: .custom)
         self.selectBtn.isUserInteractionEnabled = false
         self.selectBtn.isHidden = true
-        self.selectBtn.setImage(getImage("zl_albumSelect"), for: .selected)
+        self.selectBtn.setImage(getImage("zl_albumSelect")?.withRenderingMode(.alwaysTemplate), for: .selected)
+        self.selectBtn.imageView?.tintColor = zlRGB(2, 175, 141)
         self.contentView.addSubview(self.selectBtn)
     }
     
