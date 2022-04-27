@@ -98,7 +98,7 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
         self.btnSelect = SelectedButton(type: .custom)
         self.btnSelect.addTarget(self, action: #selector(btnSelectClick), for: .touchUpInside)
         self.btnSelect.setImage(getImage("zl_albumUnSelect"), for: .normal)
-        self.btnSelect.zl_enlargeValidTouchArea(insets: UIEdgeInsets(top: 5, left: 20, bottom: 20, right: 5))
+        self.btnSelect.enlargeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 20, right: 5)
         self.contentView.addSubview(self.btnSelect)
         
         self.indexLabel = UILabel()
