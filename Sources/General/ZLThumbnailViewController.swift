@@ -1208,13 +1208,13 @@ extension ZLThumbnailViewController: UIImagePickerControllerDelegate, UINavigati
 extension ZLThumbnailViewController: PHPhotoLibraryChangeObserver {
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let changes = changeInstance.changeDetails(for: self.albumList.result)
-            else { return }
-        guard let nav = navigationController as? ZLImageNavController else {
-            zlLoggerInDebug("Navigation controller is null")
-            return
-        }
         ZLMainAsync {
+            guard let changes = changeInstance.changeDetails(for: self.albumList.result)
+                else { return }
+            guard let nav = navigationController as? ZLImageNavController else {
+                zlLoggerInDebug("Navigation controller is null")
+                return
+            }
             // 变化后再次显示相册列表需要刷新
             self.hasTakeANewAsset = true
             self.albumList.result = changes.fetchResultAfterChanges
