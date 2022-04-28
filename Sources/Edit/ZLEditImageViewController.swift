@@ -272,7 +272,7 @@ open class ZLEditImageViewController: UIViewController {
         selectRatio = editModel?.selectRatio
         
         var ts = editConfig.tools
-        if ts.contains(.imageSticker), editConfig.imageStickerContainerView == nil {
+        if ts.contains(.imageSticker) {
             ts.removeAll { $0 == .imageSticker }
         }
         tools = ts
@@ -637,15 +637,7 @@ open class ZLEditImageViewController: UIViewController {
         }
         
         if self.tools.contains(.imageSticker) {
-            let imageStickerView = ZLPhotoConfiguration.default().editImageConfiguration.imageStickerContainerView
-            imageStickerView?.hideBlock = { [weak self] in
-                self?.setToolView(show: true)
-                self?.imageStickerContainerIsHidden = true
-            }
-            
-            imageStickerView?.selectImageBlock = { [weak self] (image) in
-                self?.addImageStickerView(image)
-            }
+
         }
         
         let tapGes = UITapGestureRecognizer(target: self, action: #selector(tapAction(_:)))
@@ -733,7 +725,6 @@ open class ZLEditImageViewController: UIViewController {
     }
     
     func imageStickerBtnClick() {
-        ZLPhotoConfiguration.default().editImageConfiguration.imageStickerContainerView?.show(in: view)
         setToolView(show: false)
         imageStickerContainerIsHidden = false
     }

@@ -24,16 +24,6 @@
 
 import UIKit
 
-@objc public protocol ZLImageStickerContainerDelegate where Self: UIView {
-    
-    @objc var selectImageBlock: ((UIImage) -> Void)? { get set }
-    
-    @objc var hideBlock: (() -> Void)? { get set }
-    
-    @objc func show(in view: UIView)
-    
-}
-
 public class ZLEditImageConfiguration: NSObject {
 
     @objc public enum EditTool: Int, CaseIterable {
@@ -173,9 +163,7 @@ public class ZLEditImageConfiguration: NSObject {
             pri_filters = newValue
         }
     }
-    
-    @objc public var imageStickerContainerView: (UIView & ZLImageStickerContainerDelegate)? = nil
-    
+
     private var pri_adjustTools: [ZLEditImageConfiguration.AdjustTool] = ZLEditImageConfiguration.AdjustTool.allCases
     /// Adjust image tools. (Default order is brightness, contrast, saturation)
     /// Valid when the tools contain EditTool.adjust
@@ -250,12 +238,6 @@ extension ZLEditImageConfiguration {
     @discardableResult
     public func filters(_ filters: [ZLFilter]) -> ZLEditImageConfiguration {
         self.filters = filters
-        return self
-    }
-    
-    @discardableResult
-    public func imageStickerContainerView(_ view: (UIView & ZLImageStickerContainerDelegate)?) -> ZLEditImageConfiguration {
-        imageStickerContainerView = view
         return self
     }
     

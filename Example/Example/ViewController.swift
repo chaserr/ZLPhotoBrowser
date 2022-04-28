@@ -157,8 +157,8 @@ class ViewController: UIViewController {
          */
         
         let editImageConfiguration = ZLPhotoConfiguration.default().editImageConfiguration
-        editImageConfiguration
-            .imageStickerContainerView(ImageStickerContainerView())
+//        editImageConfiguration
+//            .imageStickerContainerView(ImageStickerContainerView())
 //            .tools([.draw, .filter, .adjust, .mosaic])
 //            .adjustTools([.brightness, .contrast, .saturation])
 //            .clipRatios([.custom, .circle, .wh1x1, .wh3x4, .wh16x9, ZLImageClipRatio(title: "2 : 1", whRatio: 2 / 1)])
