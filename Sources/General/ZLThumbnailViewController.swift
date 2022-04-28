@@ -1211,7 +1211,7 @@ extension ZLThumbnailViewController: PHPhotoLibraryChangeObserver {
         ZLMainAsync {
             guard let changes = changeInstance.changeDetails(for: self.albumList.result)
                 else { return }
-            guard let nav = navigationController as? ZLImageNavController else {
+            guard let nav = self.navigationController as? ZLImageNavController else {
                 zlLoggerInDebug("Navigation controller is null")
                 return
             }
